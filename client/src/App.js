@@ -12,6 +12,7 @@ class App extends Component {
     title: ""
   };
 
+  // ``` input news title in search bar
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -19,20 +20,17 @@ class App extends Component {
     });
   };
 
+  // ``` submit the search button
   searchBtnSubmit = event => {
     event.preventDefault();
     if (this.state.title) {
-      this.searchNews(this.state.title)
+      API.searchNews(this.state.title)
+        .then(res => {
+          this.setState({ news: res.data.hits });
+          console.log(this.state.news[0]);
+        })
+        .catch(err => console.log(err));
     }
-  };
-
-  searchNews = title => {
-    API.searchNews(title)
-      .then(res => {
-        this.setState({ news: res.data.hits });
-        console.log(this.state.news[0]);
-      })
-      .catch(err => console.log(err));
   };
 
   render() {
@@ -60,9 +58,10 @@ class App extends Component {
             </Form>
           </Col>
         </Row>
+
+        {/* ``` show the search results ``` */}
         <Row>
           <Col size="sm-12">
-
             <Results>
               {this.state.news.length ? (
                 <List>
@@ -84,7 +83,6 @@ class App extends Component {
                   </div>
                 )}
             </Results>
-
           </Col>
         </Row>
       </Container>
