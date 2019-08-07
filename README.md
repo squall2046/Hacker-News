@@ -1,7 +1,7 @@
 # Hacker-News
 ###
 
-#### Launch the App at Local
+#### Launch the App in Local
 
 * `git clone` or download app from github
 * `npm i` in your terminal, under the root directory of your app, install node_modules
